@@ -27,9 +27,13 @@ def temp():
     data = str(subprocess.check_output(["tail", "-n1", "../temp_data.csv"]))
     timestamp, greenhouse_temp, porch_temp = data.split(",")[:3]
 
+    greenhouse_f = round(float(greenhouse_temp) * 9 / 5 + 32, 1)
+    porch_f = round(float(porch_temp) * 9 / 5 + 32, 1)
+
     return json.dumps(
-        {"greenhouse": greenhouse_temp,
-         "porch": porch_temp})
+        {"Greenhouse": "{:0.1f}°F".format(greenhouse_f),
+         "Front Porch": "{:0.1f}°F".format(porch_f)
+         })
 
 
 if __name__ == '__main__':
